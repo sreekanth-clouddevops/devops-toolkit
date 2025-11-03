@@ -2,12 +2,14 @@
 FROM ubuntu:22.04 AS builder
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash make git curl jq ca-certificates \
+    bash make git curl jq ca-certificates shellcheck \
  && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 COPY . /app
-# Fail fast if quality gates fail
-RUN make lint && make test
+
+# Override VERSION so Makefile doesn't try to call `git describe` in this context
+RUN make lint VERSION=v0.0.0 && make test VERSION=v0.0.0
 
 # ---------- runtime: minimal tools to run scripts ----------
 FROM debian:bookworm-slim AS runtime
