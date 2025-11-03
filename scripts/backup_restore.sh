@@ -16,7 +16,7 @@ backup() {
 restore() {
   echo "Available backups:"
   ls -1 "$BACKUP_DIR"
-  read -p "Enter backup filename to restore: " FILE
+  IFS= read -r -p "Enter backup filename to restore: " FILE
   [[ ! -f "$BACKUP_DIR/$FILE" ]] && { echo "File not found"; exit 1; }
   tar -xzf "$BACKUP_DIR/$FILE"
   echo "Restore complete!"
