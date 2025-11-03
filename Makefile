@@ -41,3 +41,20 @@ uninstall:
 
 clean:
 	@rm -rf $(DIST)
+
+.PHONY: docker-build docker-run docker-clean docker-size
+
+IMAGE ?= sree/devops-toolkit
+TAG ?= v2
+
+docker-build:
+	@docker build -t $(IMAGE):$(TAG) .
+
+docker-run:
+	@docker run --rm -it $(IMAGE):$(TAG) /bin/bash -lc "system_check || true; ls /app"
+
+docker-clean:
+	@docker image prune -f
+
+docker-size:
+	@docker image inspect $(IMAGE):$(TAG) --format='{{.Size}}' 2>/dev/null | awk '{print int($$1/1024/1024) " MB"}' || echo "image not found"
