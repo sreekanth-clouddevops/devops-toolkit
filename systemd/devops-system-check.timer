@@ -1,0 +1,10 @@
+[Unit]
+Description=Run DevOps system_check every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Unit=devops-system-check.service
+
+[Install]
+WantedBy=timers.target

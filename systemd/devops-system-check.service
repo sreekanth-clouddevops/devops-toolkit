@@ -1,0 +1,7 @@
+[Unit]
+Description=DevOps Toolkit - system_check
+
+[Service]
+Type=oneshot
+ExecStart=/home/vagrant/devops-labs/week1/devops-toolkit/bin/system_check.sh
+WorkingDirectory=/home/vagrant/devops-labs/week1/devops-toolkit
