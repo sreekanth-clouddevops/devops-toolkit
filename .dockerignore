@@ -1,0 +1,9 @@
+.git
+.gitignore
+dist/
+logs/
+backup/
+.vagrant/
+__pycache__/
+node_modules/
+*.tar.gz
