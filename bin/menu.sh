@@ -7,6 +7,8 @@ case "${1:-}" in
   disk)  "${ROOT}/bin/disk_alert.sh" ;;
   *)
     echo "Usage: $0 {check|disk}"
+    check : run system check
+    disk  : run disk usage check
     exit 2
     ;;
 esac
