@@ -1,0 +1,7 @@
+2025-11-03 10:00:00 INFO  Starting application
+2025-11-03 10:01:12 INFO  User sree logged in
+2025-11-03 10:02:15 ERROR DB connection failed
+2025-11-03 10:02:17 WARN  Retrying connection
+2025-11-03 10:03:00 INFO  User sree performed update
+2025-11-03 10:05:32 ERROR API timeout
+2025-11-03 10:06:11 INFO  Shutdown complete

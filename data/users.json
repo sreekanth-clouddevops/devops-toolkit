@@ -1,0 +1,7 @@
+{
+  "users": [
+    {"name": "Sree", "role": "DevOps Lead", "active": true},
+    {"name": "Tejith", "role": "Developer", "active": false},
+    {"name": "Amit", "role": "Tester", "active": true}
+  ]
+}

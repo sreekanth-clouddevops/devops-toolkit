@@ -1,0 +1,10 @@
+# editor and OS junk
+*.swp
+.DS_Store
+
+# logs & backups
+logs/
+backup/*.tar.gz
+# Python, node, etc (future)
+__pycache__/
+node_modules/
