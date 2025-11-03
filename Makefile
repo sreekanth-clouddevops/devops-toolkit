@@ -16,7 +16,7 @@ help:
 
 lint:
 	@echo "[lint] shellcheck…"
-	@find bin scripts tests -type f -name "*.sh" -print0 | xargs -0 -r shellcheck
+	@find bin scripts tests -type f -name "*.sh" -print0 | xargs -0 -r shellcheck -S error
 
 test:
 	@echo "[test] running tests…"
