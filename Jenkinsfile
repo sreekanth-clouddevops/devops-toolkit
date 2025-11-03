@@ -27,6 +27,7 @@ pipeline {
     }
 
     stage('Archive Artifact') {
+     stage('Docker Build') { steps { sh 'make docker-build TAG=v2' } }
       steps {
         archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
       }
