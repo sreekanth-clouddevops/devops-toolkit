@@ -1,6 +1,21 @@
 pipeline {
   agent any
 
+  options {
+    timestamps()
+    skipDefaultCheckout(true)
+  }
+
+  parameters {
+    string(name: 'IMAGE', defaultValue: 'sree/devops-toolkit', description: 'Docker image name')
+    string(name: 'TAG',   defaultValue: 'v2',                 description: 'Docker tag')
+  }
+
+  environment {
+    IMAGE = "${params.IMAGE}"
+    TAG   = "${params.TAG}"
+  }
+
   stages {
     stage('Checkout') {
       steps {
@@ -16,7 +31,8 @@ pipeline {
 
     stage('Test') {
       steps {
-        sh 'make test || true'  // Allow failure for now
+        // keep moving even if tests fail for now; flip to strict later
+        sh 'make test || true'
       }
     }
 
@@ -27,9 +43,14 @@ pipeline {
     }
 
     stage('Archive Artifact') {
-     stage('Docker Build') { steps { sh 'make docker-build TAG=v2' } }
       steps {
-        archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true
+        archiveArtifacts artifacts: 'dist/*.tar.gz', fingerprint: true, allowEmptyArchive: true
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh 'make docker-build IMAGE=${IMAGE} TAG=${TAG}'
       }
     }
   }
@@ -40,3 +61,4 @@ pipeline {
     }
   }
 }
+
