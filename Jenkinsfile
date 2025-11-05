@@ -7,8 +7,8 @@ pipeline {
   }
 
   parameters {
-    string(name: 'IMAGE', defaultValue: 'sree/devops-toolkit', description: 'Docker image name')
-    string(name: 'TAG',   defaultValue: 'v2',                 description: 'Docker tag')
+    string(name: 'IMAGE', defaultValue: 'sreemanthenaclouddevops/devops-toolkit', description: 'Docker image name')
+    string(name: 'TAG',   defaultValue: 'v2', description: 'Docker tag') 
   }
 
   environment {
