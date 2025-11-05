@@ -43,6 +43,10 @@ pipeline {
       }
     }
 
+    stage('Docker Clean (one-off)') {
+      steps { sh 'docker image prune -f || true' }
+   }
+
     stage('Docker Build') {
       steps {
         sh '''
