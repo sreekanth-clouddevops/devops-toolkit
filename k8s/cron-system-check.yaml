@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: system-check
+  namespace: toolkit
+spec:
+  schedule: "*/5 * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: system-check
+            image: sreemanthenaclouddevops/devops-toolkit:v2
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/bash","-lc"]
+            args:
+              - >
+                /app/bin/system_check.sh || true;
+                echo "----- DONE -----"
+          
