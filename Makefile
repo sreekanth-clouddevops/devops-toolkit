@@ -69,7 +69,7 @@ docker-smoke:
 	@echo "[smoke] running container $(IMAGE):$(TAG)…"
 	@docker run --rm $(IMAGE):$(TAG) /bin/bash -lc '\
 		set -euo pipefail; \
-		/app/bin/system_check > /tmp/sys.log 2>&1 || true; \
+		/app/bin/system_check.sh > /tmp/sys.log 2>&1 || true; \
 		grep -qi "===== System Check Start =====" /tmp/sys.log \
 		&& echo "[smoke] system_check ok" \
 		|| { echo "[smoke] system_check missing expected banner"; cat /tmp/sys.log; exit 1; } \
