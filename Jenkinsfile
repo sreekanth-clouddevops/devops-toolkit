@@ -80,6 +80,18 @@ pipeline {
         }
       }
     }
+
+    stage('Pull & Smoke Test') {
+      steps {
+        sh '''
+          echo "🔽 Pulling ${IMAGE}:${TAG} from Docker Hub"
+          docker pull ${IMAGE}:${TAG}
+
+          echo "🧪 Running smoke test…"
+          make docker-smoke IMAGE=${IMAGE} TAG=${TAG}
+        '''
+      }
+    }
   }
 
   post {

@@ -58,3 +58,23 @@ docker-clean:
 
 docker-size:
 	@docker image inspect $(IMAGE):$(TAG) --format='{{.Size}}' 2>/dev/null | awk '{print int($$1/1024/1024) " MB"}' || echo "image not found"
+
+.PHONY: docker-pull docker-smoke docker-rm
+
+docker-pull:
+	@docker pull $(IMAGE):$(TAG)
+
+# Run a tiny smoke test in a clean container and assert expected output
+docker-smoke:
+	@echo "[smoke] running container $(IMAGE):$(TAG)…"
+	@docker run --rm $(IMAGE):$(TAG) /bin/bash -lc '\
+		set -euo pipefail; \
+		/app/bin/system_check > /tmp/sys.log 2>&1 || true; \
+		grep -qi "===== System Check Start =====" /tmp/sys.log \
+		&& echo "[smoke] system_check ok" \
+		|| { echo "[smoke] system_check missing expected banner"; cat /tmp/sys.log; exit 1; } \
+	'
+	@echo "[smoke] OK"
+
+docker-rm:
+	@docker ps -aq --filter "ancestor=$(IMAGE):$(TAG)" | xargs -r docker rm -f
